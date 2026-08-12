@@ -8,7 +8,7 @@ pipeline{
             //     branch "main"
             // }
             steps{
-                echo "===here we will call the openFGA cli commandss"
+                echo "===here we will call the openFGA cli commands"
             }
         }
     }
