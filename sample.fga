@@ -1,0 +1,12 @@
+model
+  schema 1.1
+
+type user
+
+type sample_role 
+    relations
+        define assignee : [user]
+type sample_function
+    relations
+        define associated_role:[sample_role]
+        define perform:assignee from associated_role
