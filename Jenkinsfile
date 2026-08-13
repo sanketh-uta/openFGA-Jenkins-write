@@ -32,7 +32,7 @@ spec:
             steps {
                 container("openfga-cli") {
                     sh '''
-                        echo "===== OpenFGA Model Write ====="
+                        echo "====== OpenFGA Model Write ======"
 
                         fga model write \
                           --api-url "http://host.docker.internal:7088" \
