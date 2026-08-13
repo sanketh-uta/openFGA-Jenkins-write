@@ -12,9 +12,11 @@ pipeline{
     }
 }
         stage("openFGA write"){
-            when {
-                branch "main"
-            }
+when {
+        expression {
+            env.GIT_BRANCH == "origin/main"
+        }
+    }
             steps{
                 echo "=====here we will call the openFGA cli commands only in the merging happens====="
             }
