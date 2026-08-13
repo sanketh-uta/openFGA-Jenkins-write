@@ -2,9 +2,9 @@ pipeline{
     agent any
     stages{
         stage("openFGA write"){
-            // when {
-            //     branch "main"
-            // }
+            when {
+                branch "main"
+            }
             steps{
                 echo "=====here we will call the openFGA cli commands====="
             }
