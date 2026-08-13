@@ -1,36 +1,69 @@
-pipeline{
+pipeline {
+//     agent {
+//         kubernetes {
+//             yaml '''
+// apiVersion: v1
+// kind: Pod
+// spec:
+//   containers:
+//     - name: openfga-cli
+//       image: openfga/openfga:latest
+//       command:
+//         - sleep
+//       args:
+//         - infinity
+// '''
+//         }
+//     }
     agent any
-    stages{
-        stage("Debug Branch") {
-    steps {
-        echo "BRANCH_NAME = ${env.BRANCH_NAME}"
-        echo "GIT_BRANCH = ${env.GIT_BRANCH}"
-        echo "GIT_COMMIT = ${env.GIT_COMMIT}"
-        echo "CHANGE_ID = ${env.CHANGE_ID}"
-        echo "CHANGE_BRANCH = ${env.CHANGE_BRANCH}"
-        echo "CHANGE_TARGET = ${env.CHANGE_TARGET}"
+
+        environment {
+        OPENFGA_STORE_ID = credentials('openfga-store-id')
     }
-}
-        stage("openFGA write"){
-when {
-        expression {
-            env.GIT_BRANCH == "origin/main"
-        }
-    }
-            steps{
-                echo "=====here we will call the openFGA cli commands only in the merging happens====="
+
+    stages {
+
+        stage("OpenFGA Write") {
+            when {
+                expression {
+                    env.GIT_BRANCH == "origin/main"
+                }
+            }
+
+            steps {
+                
+                    sh '''
+                        echo "====== OpenFGA Model Write ======"
+
+                        fga model write \
+                          --api-url "http://host.docker.internal:7088" \
+                          --store-id "$OPENFGA_STORE_ID" \
+                          --file sample.fga
+
+                        echo "===== OpenFGA Tuple Write ====="
+
+                        fga tuple write \
+                          --api-url "http://host.docker.internal:7088" \
+                          --store-id "$OPENFGA_STORE_ID" \
+                          --file tuples.json
+
+                        echo "===== OpenFGA configuration written successfully ====="
+                    '''
             }
         }
     }
-    post{
-        always{
-            echo "========always========"
+
+    post {
+        always {
+            echo "======== always ========"
         }
-        success{
-            echo "========pipeline executed successfully ========"
+
+        success {
+            echo "======== pipeline executed successfully ========"
         }
-        failure{
-            echo "========pipeline execution failed========"
+
+        failure {
+            echo "======== pipeline execution failed ========"
         }
     }
 }
