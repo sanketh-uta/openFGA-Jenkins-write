@@ -6,7 +6,7 @@ pipeline{
                 branch "main"
             }
             steps{
-                echo "=====here we will call the openFGA cli commands====="
+                echo "=====here we will call the openFGA cli commands only in the merging happens====="
             }
         }
     }
