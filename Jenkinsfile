@@ -1,20 +1,21 @@
 pipeline {
-    agent {
-        kubernetes {
-            yaml '''
-apiVersion: v1
-kind: Pod
-spec:
-  containers:
-    - name: openfga-cli
-      image: openfga/openfga:latest
-      command:
-        - sleep
-      args:
-        - infinity
-'''
-        }
-    }
+//     agent {
+//         kubernetes {
+//             yaml '''
+// apiVersion: v1
+// kind: Pod
+// spec:
+//   containers:
+//     - name: openfga-cli
+//       image: openfga/openfga:latest
+//       command:
+//         - sleep
+//       args:
+//         - infinity
+// '''
+//         }
+//     }
+    agent any
 
         environment {
         OPENFGA_STORE_ID = credentials('openfga-store-id')
@@ -30,7 +31,7 @@ spec:
             }
 
             steps {
-                container("openfga-cli") {
+                
                     sh '''
                         echo "====== OpenFGA Model Write ======"
 
@@ -48,7 +49,6 @@ spec:
 
                         echo "===== OpenFGA configuration written successfully ====="
                     '''
-                }
             }
         }
     }
