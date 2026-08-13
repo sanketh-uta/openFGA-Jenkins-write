@@ -1,14 +1,12 @@
-{
-  "writes":[
+[
     {
-        "user":"sample_role:admin",
-        "relation":"associated_role",
-        "object":"sample_function:update"
+      "user": "sample_role:admin",
+      "relation": "associated_role",
+      "object": "sample_function:update"
     },
     {
-        "user":"user:sanketh",
-        "relation":"associated_role",
-        "object":"sample_role:admin"
+      "user": "user:sanketh",
+      "relation": "associated_role",
+      "object": "sample_role:admin"
     }
   ]
-}
