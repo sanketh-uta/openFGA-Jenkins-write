@@ -1,12 +1,12 @@
 [
     {
-      "user": "sample_role:admin",
+      "user": "sample_role:editor",
       "relation": "associated_role",
       "object": "sample_function:update"
     },
     {
       "user": "user:sanketh",
-      "relation": "associated_role",
-      "object": "sample_role:admin"
+      "relation": "assignee",
+      "object": "sample_role:editor"
     }
   ]
